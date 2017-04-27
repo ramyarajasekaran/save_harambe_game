@@ -233,10 +233,11 @@ uint32_t Convert(uint32_t mailbox){
 // ************* Capture image dimensions out of BMP**********
 uint32_t value1,value2;
 uint8_t y,i=0;
+volatile int seed;
 int main(void){
 	
   TExaS_Init();  // set system clock to 80 MHz
-  Random_Init(1);
+  Random_Init(seed);
 	ADC_Init();
 	SysTick_Init(2000000);
 	
@@ -263,12 +264,7 @@ int main(void){
 	ST7735_DrawBitmap(75,98 ,sprite_banana , 15,13);
 	ST7735_DrawBitmap(95,98 ,sprite_banana , 15,13);
 //	while(i<4){
-	do{
-		
-		temp=Random32()%161;
-		
-	}while((temp>=145)||(((temp>=30)&&(temp<=33))||((temp>=60)&&(temp<=63))||((temp>=100)&&(temp<=103))||((temp>=110)&&(temp<=113))));
-	y=temp;
+
 //	i++;
 
 
@@ -287,6 +283,17 @@ int main(void){
 	}
 }
 //}
+
+void random(){
+
+	do{
+		
+		temp=Random32()%161;
+		
+	}while((temp>=145)||(((temp>=30)&&(temp<=33))||((temp>=60)&&(temp<=63))||((temp>=100)&&(temp<=103))||((temp>=110)&&(temp<=113))));
+	y=temp;
+	
+}
 	
 uint8_t x=120;
 void display_bullets(){
