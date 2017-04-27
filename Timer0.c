@@ -24,6 +24,7 @@
 #include <stdint.h>
 
 #include "tm4c123gh6pm.h"
+#include "struct_definition.h"
 
 void (*PeriodicTask0)(void);   // user function
 
@@ -52,4 +53,16 @@ void Timer0_Init(void(*task)(void), uint32_t period){
 void Timer0A_Handler(void){
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// acknowledge TIMER0A timeout
   (*PeriodicTask0)();                // execute user task
+}
+
+void UserTask(){
+	static uint8_t cnt_b1=0,cnt_b2=0,cnt_b3=0;
+	cnt_b1++;
+	cnt_b2++;
+	cnt_b3++;
+	if(cnt_b1%100)
+		Bullets[0].x+=2;
+	if()
+
+
 }
