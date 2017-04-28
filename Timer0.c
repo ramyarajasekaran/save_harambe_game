@@ -55,14 +55,4 @@ void Timer0A_Handler(void){
   (*PeriodicTask0)();                // execute user task
 }
 
-void UserTask(){
-	static uint8_t cnt_b1=0,cnt_b2=0,cnt_b3=0;
-	cnt_b1++;
-	cnt_b2++;
-	cnt_b3++;
-	if(cnt_b1%100)
-		Bullets[0].x+=2;
-	if()
 
-
-}

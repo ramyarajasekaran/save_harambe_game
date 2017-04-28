@@ -465,16 +465,6 @@
               <FileType>5</FileType>
               <FilePath>.\tm4c123gh6pm.h</FilePath>
             </File>
-            <File>
-              <FileName>struct_definition.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\struct_definition.c</FilePath>
-            </File>
-            <File>
-              <FileName>Display_engine.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Display_engine.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
