@@ -1,6 +1,9 @@
 #include <stdint.h>
 #include "struct_definition.h"
+#include "Update.h"
+#include "global_variables.h"
 
+//uint8_t Gdown;
 void check_Bullet(){
 	uint8_t i;	
 	for(i=0;i<num_bullets;i++)

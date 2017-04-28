@@ -247,9 +247,8 @@ ARM Macro Assembler    Page 4
   186 00000118                 END                          ; end of file
               20007000 
 Command Line: --debug --xref --cpu=Cortex-M4 --apcs=interwork --depend=.\print.
-d -o.\print.o -I"C:\Users\Tara Kuruvilla\Desktop\ARM\RV31\INC" -I"C:\Users\Tara
- Kuruvilla\Desktop\ARM\CMSIS\Include" -I"C:\Users\Tara Kuruvilla\Desktop\ARM\In
-c\Luminary" --predefine="__EVAL SETA 1" --list=.\print.lst Print.s
+d -o.\print.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\
+Inc\Luminary --list=.\print.lst Print.s
 
 
 
@@ -434,4 +433,4 @@ Symbol: ST7735_OutString
       At line 126 in file Print.s
 Comment: ST7735_OutString used once
 2 symbols
-351 symbols in table
+350 symbols in table

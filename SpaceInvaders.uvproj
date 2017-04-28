@@ -475,6 +475,31 @@
               <FileType>1</FileType>
               <FilePath>.\Display_engine.c</FilePath>
             </File>
+            <File>
+              <FileName>update.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\update.h</FilePath>
+            </File>
+            <File>
+              <FileName>struct_definition.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\struct_definition.h</FilePath>
+            </File>
+            <File>
+              <FileName>update.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\update.c</FilePath>
+            </File>
+            <File>
+              <FileName>Button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Button.c</FilePath>
+            </File>
+            <File>
+              <FileName>global_variables.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\global_variables.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

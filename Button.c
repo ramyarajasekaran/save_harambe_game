@@ -7,10 +7,10 @@
 #include "ADC.h"
 #include "Button.h"
 #include "struct_definition.h"
+#include "global_variables.h"
 
 void EnableInterrupts(void);
 void DisableInterrupts(void);
-
 
 
 //initializes PB0 to be edge triggered interupt button
@@ -29,7 +29,10 @@ void Button_Init(void){
   GPIO_PORTD_IM_R |= 0x01;      // (f) arm interrupt on PBO
   NVIC_PRI7_R = (NVIC_PRI7_R&0xFF00FFFF)|0x00A00000; // (g) priority 5
   NVIC_EN0_R = 0x40000000;      // (h) enable interrupt 30 in NVIC
-  EnableInterrupts();           // (i) Enable global Interrupt flag (I)
+  EnableInterrupts();	// (i) Enable global Interrupt flag (I)
+	
+	//Gdown=0;
+	
 }
 
 

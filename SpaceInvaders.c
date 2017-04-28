@@ -57,7 +57,8 @@
 #include "ADC.h"
 #include "Button.h"
 #include "Timer0.h"
-#include "update.h"
+#include "Update.h"
+#include "global_variables.h"
 #include "struct_definition.h"
 
 
@@ -77,7 +78,7 @@ void UserTask(void);
 
 uint32_t ADCMail,ADCStatus=0,check=0,check1=0;
 
-int Gdown=0;
+//uint8_t  Gdown=0;
 
 uint32_t Convert(uint32_t mailbox){
 	mailbox=113*mailbox/4096;
@@ -97,14 +98,16 @@ int main(void){
 	ADC_Init();
 	SysTick_Init(2000000);
 	
-	uint8_t temp;
-	
   Output_Init();
 	
   ST7735_FillScreen(0x0000);            // set screen to black
 	 	
 	
-	Timer0_Init(&UserTask(), uint32_t period);
+	Timer0_Init(&UserTask,4000000);
+	
+	Button_Init();
+	
+	
 	while(1)
 	{
 		
