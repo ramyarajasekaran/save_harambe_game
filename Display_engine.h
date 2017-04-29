@@ -5,7 +5,7 @@
 
 
 void Display_Engine(void);
-void randomy(struct bullet element);
+uint8_t randomy();
 
 
 

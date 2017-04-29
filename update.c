@@ -17,6 +17,13 @@ void check_Bullet(){
 
 void moveGorilla(int x, int y)
 {
+	//check if in LCD range
+	if(y>=160)
+	{y=160;}
+	
+	if(y<=15)
+	{y=15;}
+	
 	//shift the current Gorilla coord to the old coord
 	Gorilla.oldx=Gorilla.x;
 	Gorilla.oldy=Gorilla.y;
@@ -44,21 +51,30 @@ void captBanana(void)
 			if(Gorilla.pos==RIGHT)
 				{
 					if((((Gorilla.x)+15)==(Bananas[n].x)))
+					{
 						Bananas[n].capt=CAPTURED;
+						Gorilla.score+=10;
+					}
 				}
 				
 			//check if gorilla captured banana while moving from left
 			if(Gorilla.pos==LEFT)
 				{
 					if((Gorilla.x)==((Bananas[n].x)+15))
+					{
 						Bananas[n].capt=CAPTURED;
+						Gorilla.score+=10;
+					}
 				}
 		}
 		//check if gorilla captured banana while moving up
 		if((Gorilla.x>=(Bananas[n].x))&&(((Gorilla.x)<=((Bananas[n].x)+15))))
 		{
 			if((Gorilla.y<=(Bananas[n].y+13))&&(Gorilla.y>=Bananas[n].y))
-				Bananas[n].capt=CAPTURED;
+				{
+						Bananas[n].capt=CAPTURED;
+						Gorilla.score+=10;
+				}
 		}
 	}
 }
@@ -74,8 +90,9 @@ void gorillaLand(void)
 			Gdown=0;//clear flag for downward direction
 		}
 		//add for floor
-		else if(Gorilla.y==0)
+		else if(Gorilla.y>=153&&Gorilla.y<=163)
 		{
+			Gorilla.y=160;
 			Gdown=0;//clear flag for downward direction
 		}
 	}

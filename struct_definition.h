@@ -29,10 +29,13 @@ extern struct bullet Bullet[num_bullets];
 
 //gorilla struct
 struct gorilla{
-	int x,oldx;
-	int y,oldy;
+	int x;
+	int y; 
+	int oldx;
+	int oldy;
 	side pos;
 	Status status;
+	int score;
 };
 extern struct gorilla Gorilla;  
 

@@ -163,7 +163,7 @@ const unsigned short left2[] = {
 
 //declare initial Gorrilla Position here
 //128 x, 160 y
-struct gorilla Gorilla= {0, 160, RIGHT,ALIVE};  
+struct gorilla Gorilla= {0, 160, 0, 160, RIGHT,ALIVE, 0};  
 
 // w = 15 h = 13 BANANA
 struct banana Bananas[6 /*number of bananas on screen*/]= {

@@ -100,13 +100,14 @@ int main(void){
   Random_Init(seed);		// to generate new random number everytime
 	ADC_Init();
 	SysTick_Init(2000000);
-	
+	char* ptr = "SAVE HARAMBE!";
   
 	Output_Init();
 	
 	ST7735_FillScreen(0x0000);            // set screen to black		
 	Timer0_Init(&UserTask,4000000);
 	Button_Init();
+	
 	
 	volatile uint32_t delay;
 
@@ -123,10 +124,20 @@ int main(void){
   GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0x00FF0FFF)+0x00000000;
   GPIO_PORTA_AMSEL_R &= ~0xC8;          // disable analog functionality on PA3,6,7
 	
-	ST7735_FillScreen(0x0000);            // set screen to black	
-	
-	while(1)
+	//display main menu
+		ST7735_DrawString(4, 2, ptr, 0xFFFF);
+		
+		char* ptr2 = "PLAY GAME";
+		ST7735_DrawString(4, 15, ptr2, 0xFFFF);
+		
+		while(GPIO_PORTF_DATA_R&0x01){}
+			ST7735_DrawString(4, 15, ptr2, 0xF800);
+		while(!(GPIO_PORTF_DATA_R&0x01)){}
+			ST7735_FillScreen(0x0000); 
+			
+	while(Gorilla.status==ALIVE||GPIO_PORTF_DATA_R&0x01) //check if end game button is pressed OR if gorilla is dead
 	{
+		
 		
 		//1. read ADC
 		while(ADCStatus!=1){}
@@ -135,7 +146,7 @@ int main(void){
 		//2. read button
 		if(Gdown)
 			{newY+=2;}
-		else if(GPIO_PORTF_DATA_R)
+		else if(!(GPIO_PORTF_DATA_R&0x10))
 			{newY-=2;}
 		//3. change coordinate of gorilla in struct
 		if(Gdown)
@@ -146,10 +157,12 @@ int main(void){
 		//5. Check if Gorilla captured the Banana
 		captBanana();	
 		//6.display board
-			ST7735_FillScreen(0x0000);            // set screen to black	
+	
 		Display_Engine();
 			
 	}
+	
+	//end screen, do display of end screen here
 }
 
 
