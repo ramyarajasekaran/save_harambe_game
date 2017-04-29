@@ -74,6 +74,7 @@ void check_Bullet(void);
 void Display_Engine(void);
 void Timer0_Init(void(*task)(void), uint32_t period);
 void UserTask(void);
+void PortAinit(void);
  
 
 uint32_t ADCMail,ADCStatus=0,check=0,check1=0;
@@ -87,6 +88,8 @@ uint32_t Convert(uint32_t mailbox){
 }
 
 
+
+
 // ************* Capture image dimensions out of BMP**********
 uint32_t newX, newY=160, value2;
 uint8_t y,i=0;
@@ -98,15 +101,29 @@ int main(void){
 	ADC_Init();
 	SysTick_Init(2000000);
 	
-  Output_Init();
+  
+	Output_Init();
 	
-  ST7735_FillScreen(0x0000);            // set screen to black
-	 	
-	
+	ST7735_FillScreen(0x0000);            // set screen to black		
 	Timer0_Init(&UserTask,4000000);
-	
 	Button_Init();
 	
+	volatile uint32_t delay;
+
+	SYSCTL_RCGCSSI_R |= 0x01;  // activate SSI0
+  SYSCTL_RCGCGPIO_R |= 0x01; // activate port A
+  while((SYSCTL_PRGPIO_R&0x01)==0){}; // allow time for clock to start
+	delay=5;
+  // toggle RST low to reset; CS low so it'll listen to us
+  // SSI0Fss is temporarily used as GPIO
+  GPIO_PORTA_DIR_R |= 0xC8;             // make PA3,6,7 out
+  GPIO_PORTA_AFSEL_R &= ~0xC8;          // disable alt funct on PA3,6,7
+  GPIO_PORTA_DEN_R |= 0xC8;             // enable digital I/O on PA3,6,7
+                                        // configure PA3,6,7 as GPIO
+  GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0x00FF0FFF)+0x00000000;
+  GPIO_PORTA_AMSEL_R &= ~0xC8;          // disable analog functionality on PA3,6,7
+	
+	ST7735_FillScreen(0x0000);            // set screen to black	
 	
 	while(1)
 	{
@@ -118,7 +135,7 @@ int main(void){
 		//2. read button
 		if(Gdown)
 			{newY+=2;}
-		else if(GPIO_PORTD_DATA_R)
+		else if(GPIO_PORTF_DATA_R)
 			{newY-=2;}
 		//3. change coordinate of gorilla in struct
 		if(Gdown)
@@ -129,6 +146,7 @@ int main(void){
 		//5. Check if Gorilla captured the Banana
 		captBanana();	
 		//6.display board
+			ST7735_FillScreen(0x0000);            // set screen to black	
 		Display_Engine();
 			
 	}

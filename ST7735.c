@@ -663,8 +663,9 @@ void static commonInit(const uint8_t *cmdList) {
 
   SYSCTL_RCGCSSI_R |= 0x01;  // activate SSI0
   SYSCTL_RCGCGPIO_R |= 0x01; // activate port A
-  while((SYSCTL_PRGPIO_R&0x01)==0){}; // allow time for clock to start
-
+  while((SYSCTL_RCGCGPIO_R&0x01)==0){};
+	while((SYSCTL_PRGPIO_R&0x01)==0){}; // allow time for clock to start
+	delay=5;
   // toggle RST low to reset; CS low so it'll listen to us
   // SSI0Fss is temporarily used as GPIO
   GPIO_PORTA_DIR_R |= 0xC8;             // make PA3,6,7 out

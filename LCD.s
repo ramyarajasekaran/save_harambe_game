@@ -66,6 +66,7 @@ writecommand
 CHECK	LDR R2,[R1]
 		AND R2,#0x10
 		ADDS R2,#0
+		CMP R2, #0
 		BNE CHECK
 		LDR R1,=GPIO_PORTA_DATA_R
 		LDR R2,[R1]
@@ -77,6 +78,7 @@ CHECK	LDR R2,[R1]
 CHECK2	LDR R2,[R1]
 		AND R2,#0x10
 		ADDS R2,#0
+		CMP R2, #0
 		BNE CHECK2
     
     
@@ -95,6 +97,7 @@ writedata
 CHECK0	LDR R2,[R1]
 		AND R2,#0x01
 		ADDS R2,#0
+		CMP R2, #0
 		BEQ CHECK0
 		LDR R1,=GPIO_PORTA_DATA_R
 		LDR R2,[R1]

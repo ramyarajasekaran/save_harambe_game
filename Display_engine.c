@@ -10,13 +10,13 @@ void randomy(struct bullet element);
 
 void Display_Engine()
 {		
-		uint8_t i;
+		
 		//PLATFORMS
 	ST7735_FillRect(25,30,30,3,0xFFFF);
 	ST7735_FillRect(55,60,40,3,0xFFFF);
 	ST7735_FillRect(15,110,20,3,0xFFFF);
 	ST7735_FillRect(70,100,50,3,0xFFFF);
-	
+	uint8_t i;
 		for(i=0;i<6;i++)					// PRINTING BANANAS
 	{
 		if(Bananas[i].capt==NOTCAPTURED)			// Checking if banana has been captured
