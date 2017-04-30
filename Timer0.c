@@ -25,7 +25,7 @@
 
 #include "tm4c123gh6pm.h"
 #include "struct_definition.h"
-
+void UserTask(void);
 void (*PeriodicTask0)(void);   // user function
 
 // ***************** Timer0_Init ****************

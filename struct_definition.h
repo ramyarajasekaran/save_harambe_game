@@ -9,7 +9,9 @@ extern const unsigned short left[];
 extern const unsigned short right[] ;
 extern const unsigned short robot_clear[];
 extern const unsigned short sprite_banana[];
-
+extern const unsigned short cutie[];
+extern const unsigned short pixel[];
+extern const unsigned short emoji[];
 
 struct banana{
 	int x;

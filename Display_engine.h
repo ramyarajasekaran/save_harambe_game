@@ -5,7 +5,8 @@
 
 
 void Display_Engine(void);
-uint8_t randomy();
+uint8_t randomy(uint8_t i);
+
 
 
 

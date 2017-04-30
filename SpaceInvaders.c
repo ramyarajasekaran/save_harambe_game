@@ -79,7 +79,8 @@ void PortAinit(void);
 
 uint32_t ADCMail,ADCStatus=0,check=0,check1=0;
 
-//uint8_t  Gdown=0;
+
+
 
 uint32_t Convert(uint32_t mailbox){
 	mailbox=113*mailbox/4096;
@@ -87,12 +88,10 @@ uint32_t Convert(uint32_t mailbox){
 	return mailbox;
 }
 
-
-
-
 // ************* Capture image dimensions out of BMP**********
 uint32_t newX, newY=160, value2;
 uint8_t y,i=0;
+
 volatile int seed;
 int main(void){
 	
@@ -100,12 +99,11 @@ int main(void){
   Random_Init(seed);		// to generate new random number everytime
 	ADC_Init();
 	SysTick_Init(2000000);
-	char* ptr = "SAVE HARAMBE!";
-  
+	
 	Output_Init();
 	
 	ST7735_FillScreen(0x0000);            // set screen to black		
-	Timer0_Init(&UserTask,4000000);
+	Timer0_Init(&UserTask,150000);
 	Button_Init();
 	
 	
@@ -123,19 +121,21 @@ int main(void){
                                         // configure PA3,6,7 as GPIO
   GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0x00FF0FFF)+0x00000000;
   GPIO_PORTA_AMSEL_R &= ~0xC8;          // disable analog functionality on PA3,6,7
-	
-	//display main menu
-		ST7735_DrawString(4, 2, ptr, 0xFFFF);
 		
+	//display main menu
+		char* ptr = "SAVE HARAMBE!";
+		ST7735_FillScreen(0xFFFF);
+		ST7735_DrawString(5, 2, ptr, 0x0000);
+		ST7735_DrawBitmap(15,100 ,emoji,100,70);
 		char* ptr2 = "PLAY GAME";
-		ST7735_DrawString(4, 15, ptr2, 0xFFFF);
+		ST7735_DrawString(6, 13, ptr2, 0x0000);
 		
 		while(GPIO_PORTF_DATA_R&0x01){}
-			ST7735_DrawString(4, 15, ptr2, 0xF800);
+			ST7735_DrawString(6, 13, ptr2, 0xF0CF);
 		while(!(GPIO_PORTF_DATA_R&0x01)){}
 			ST7735_FillScreen(0x0000); 
 			
-	while(Gorilla.status==ALIVE||GPIO_PORTF_DATA_R&0x01) //check if end game button is pressed OR if gorilla is dead
+	while((dead_flag==0)&&((GPIO_PORTF_DATA_R&0x01)==0x01)) //check if end game button is pressed OR if gorilla is dead
 	{
 		
 		
@@ -163,11 +163,33 @@ int main(void){
 	}
 	
 	//end screen, do display of end screen here
+	ST7735_FillScreen(0x0000);
+	
+	ptr2 = "SCORE";
+	ST7735_DrawString(7, 2, ptr2, 0xFFFF);
+	ST7735_SetCursor(9,6);
+	LCD_OutDec(Gorilla.score);
+	
+	ptr2="HARAMBE IS THANKFUL!";
+	ST7735_DrawString(1, 13, ptr2, 0xFFFF);
+	Delay100ms(10);
+	while(GPIO_PORTF_DATA_R&0x01){}
+	
+	while(!(GPIO_PORTF_DATA_R&0x01)){}	
+	 Delay100ms(10);
+		
+	ST7735_FillScreen(0x0000);
+	ptr2 ="RIP HARAMBE";
+	ST7735_DrawString(5, 9, ptr2, 0xFFFF);
+	ST7735_DrawBitmap(35,70 ,pixel,75,63);	
+  ptr2="GAME OVER!";
+while(1){		 
+	ST7735_DrawString(9, 12, ptr2, 0x001F);
+	Delay100ms(5);	 
+	ST7735_DrawString(9, 12, ptr2, 0x0000);
+	Delay100ms(5);
+	}
 }
-
-
-
-
 
 
 void Delay100ms(uint32_t count){uint32_t volatile time;
@@ -179,18 +201,6 @@ void Delay100ms(uint32_t count){uint32_t volatile time;
     count--;
   }
 }
-
-
-void Delay10ms(uint32_t count){uint32_t volatile time;
-  while(count>0){
-    time = 799999;  // 0.1sec at 80 MHz
-    while(time){
-	  	time--;
-    }
-    count--;
-  }
-}
-
 
 void SysTick_Init(uint32_t period){
   NVIC_ST_CTRL_R &= 0xFE;         // disable SysTick during setup
@@ -215,7 +225,7 @@ void UserTask(){
 		Bullet[0].speed=1;
 	if(cnt_bullet[1]%5==0)
 		Bullet[1].speed=1;
-	if(cnt_bullet[2]%7==0)
+	if(cnt_bullet[2]%15==0)
 		Bullet[2].speed=1;
 	if(cnt_bullet[3]%10==0)
 		Bullet[3].speed=1;

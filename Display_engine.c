@@ -1,16 +1,20 @@
 #include <stdint.h>
 #include "struct_definition.h"
 #include "ST7735.h"
+#include "tm4c123gh6pm.h"
 #include "random.h"
+#include "ADC.h"
 
 void DisableInterrupts(void);
 void EnableInterrupts(void);
-uint8_t randomy(void);
+void Delay_100ms(uint32_t count);
+uint8_t randomy(uint8_t);
+
 
 
 void Display_Engine()
 {		
-		uint16_t seed=0;
+//		uint16_t seed=0;
 		//PLATFORMS
 	ST7735_FillRect(25,30,30,3,0xFFFF);
 	ST7735_FillRect(55,60,40,3,0xFFFF);
@@ -35,7 +39,7 @@ void Display_Engine()
 			if(Gorilla.pos==RIGHT)				// depends on the side the gorilla is facing/ADC moves
 			ST7735_DrawBitmap(Gorilla.x,Gorilla.y, right, 15,15);
 			else
-			ST7735_DrawBitmap(Gorilla.x,Gorilla.y, left, 15,15);	
+			ST7735_DrawBitmap(Gorilla.x,Gorilla.y,left, 15,15);	
 			
 		}
 		else													// WHEN GORILLA IS DEAD - blinks 3 times and disappears -- 
@@ -47,10 +51,11 @@ void Display_Engine()
 			{
 			if(Gorilla.pos == RIGHT)
 				ST7735_DrawBitmap(Gorilla.x,Gorilla.y,right , 15,15);	//BLINKING with delay
+
 			else
 				ST7735_DrawBitmap(Gorilla.x,Gorilla.y,left , 15,15);
 				
-			//Delay100ms(2);
+			Delay_100ms(5);
 			
 			ST7735_DrawBitmap(Gorilla.x,Gorilla.y, robot_clear, 15,15);
 			}
@@ -65,10 +70,8 @@ void Display_Engine()
 				Bullet[i].x=120;
 			if(Bullet[i].x==120)
 			{
-				seed=Random();
-				seed+=10;
-				Random_Init(seed);	// changes seed for the y coord generator
-				Bullet[i].y=randomy();		// change y coordinate of bullet
+				Random_Init(ADC_In());	// changes seed for the y coord generator
+				Bullet[i].y=randomy(i);		// change y coordinate of bullet
 				ST7735_FillRect(0,Bullet[i].oldy ,5,3 , 0x0000);	//clean up old bullet
 			}
 			if(Bullet[i].speed==1)
@@ -84,14 +87,31 @@ void Display_Engine()
 		}
 
 }
+void Delay_100ms(uint32_t count){uint32_t volatile time;
+  while(count>0){
+    time = 727240;  // 0.1sec at 80 MHz
+    while(time){
+	  	time--;
+    }
+    count--;
+  }
+}
 
-uint8_t randomy(){
-	uint8_t temp;
+
+uint8_t randomy(uint8_t i){
+	uint8_t temp,max,min;
+	switch(i){
+		case 0:	{max=160;min=120;break;}
+		case 1:	{max=120;min=80;break;}
+		case 2: {max=80;min=40;break;}
+		case 3: {max=40;min=10;break;}
+		case 4: {max=10;min=0;break;}
+	}
 	do{
 		
-		temp=Random32()%161;
+		temp=min+Random32()%(max-min+1);
 		// checks if bullet crashes into platforms && bananas
-	}while((temp>=145)||(((temp>=27)&&(temp<=46))||((temp>=57)&&(temp<=76))||((temp>=97)&&(temp<=116))||((temp>=107)&&(temp<=126))));
+	}while((temp>=145)||((temp>=27)&&(temp<=46))||((temp>=57)&&(temp<=76))||((temp>=97)&&(temp<=116))||((temp>=107)&&(temp<=126)));
 	return temp;
 }
 

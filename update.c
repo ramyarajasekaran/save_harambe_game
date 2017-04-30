@@ -8,9 +8,10 @@ void check_Bullet(){
 	uint8_t i;	
 	for(i=0;i<num_bullets;i++)
 	{
-		if((Bullet[i].x==Gorilla.x+15)&&((Bullet[i].y<Gorilla.y+15)&&(Bullet[i].y>=Gorilla.y))) // SEE GAMEPLAY AND CHANGE
+		if(((Bullet[i].x<=Gorilla.x+17)&&((Bullet[i].x>=Gorilla.x))&&((Bullet[i].y<=Gorilla.y)&&(Bullet[i].y>=Gorilla.y-17))) )// SEE GAMEPLAY AND CHANGE
 		{
 				Gorilla.status=DEAD;
+				dead_flag=1;
 		}
 	}	
 }
@@ -35,25 +36,29 @@ void moveGorilla(int x, int y)
 	//determine if gorilla is moving left or right
 	if((Gorilla.x)>(Gorilla.oldx))
 		Gorilla.pos= RIGHT;
-	else if((Gorilla.x)<(Gorilla.oldx))
+	else
 		Gorilla.pos= LEFT;
 }
 
 void captBanana(void)
 {
+	
 	int n;
 	for(n=0; n<6; n++)
 	{
+		if(Bananas[n].capt==NOTCAPTURED)
+			{
 		//check if gorilla captured banana while moving horizontally
 		if((Gorilla.y>=(Bananas[n].y))&&(((Gorilla.y)<=((Bananas[n].y)+13))))
 		{
 			//checks if gorilla captured banana while moving from the right	
 			if(Gorilla.pos==RIGHT)
 				{
-					if((((Gorilla.x)+15)==(Bananas[n].x)))
+					if(((Gorilla.x)+15)==(Bananas[n].x))
 					{
 						Bananas[n].capt=CAPTURED;
 						Gorilla.score+=10;
+						
 					}
 				}
 				
@@ -69,12 +74,14 @@ void captBanana(void)
 		}
 		//check if gorilla captured banana while moving up
 		if((Gorilla.x>=(Bananas[n].x))&&(((Gorilla.x)<=((Bananas[n].x)+15))))
-		{
-			if((Gorilla.y<=(Bananas[n].y+13))&&(Gorilla.y>=Bananas[n].y))
+			{
+			if(((Gorilla.y<=(Bananas[n].y+13))&&(Gorilla.y>=Bananas[n].y)))
 				{
 						Bananas[n].capt=CAPTURED;
 						Gorilla.score+=10;
+						
 				}
+			}
 		}
 	}
 }
