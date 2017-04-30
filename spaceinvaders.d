@@ -8,5 +8,7 @@
 .\spaceinvaders.o: Button.h
 .\spaceinvaders.o: Timer0.h
 .\spaceinvaders.o: Update.h
+.\spaceinvaders.o: DAC.h
 .\spaceinvaders.o: global_variables.h
 .\spaceinvaders.o: struct_definition.h
+.\spaceinvaders.o: Sound.h

@@ -3,3 +3,4 @@
 .\struct_definition.o: ST7735.h
 .\struct_definition.o: Random.h
 .\struct_definition.o: struct_definition.h
+.\struct_definition.o: Sound.h

@@ -13,6 +13,9 @@ extern const unsigned short cutie[];
 extern const unsigned short pixel[];
 extern const unsigned short emoji[];
 
+extern const unsigned short guns_n_roses[48];
+extern const unsigned short wave[64];
+
 struct banana{
 	int x;
 	int y;

@@ -17,7 +17,7 @@ void DisableInterrupts(void);
 void Button_Init(void){        
   DisableInterrupts();
 	volatile int buttonDelay;
-	SYSCTL_RCGC2_R |= 0x00000020; // (a) activate clock for port F
+	SYSCTL_RCGCGPIO_R |= 0x00000020; // (a) activate clock for port F
 	buttonDelay=4;
   GPIO_PORTF_DIR_R &= ~0x10;    // (c) make PF4 in (built-in button)
   GPIO_PORTF_AFSEL_R &= ~0x10;  //     disable alt funct on PF4

@@ -7,6 +7,7 @@ void Display_Engine(void);
 #include "ST7735.h"
 #include "Random.h"
 #include "struct_definition.h"
+#include "Sound.h"
 
 
 void DisableInterrupts(void);
@@ -931,6 +932,23 @@ const unsigned short emoji[] = {
 };
 
 
+
+
+const unsigned short guns_n_roses[48]={
+									 DF,DF1,AF,GF,GF1,AF,F1,AF,
+									 DF,DF1,AF,GF,GF1,AF,F1,AF,
+									 EF,DF1,AF,GF,GF1,AF,F1,AF,
+									 EF,DF1,AF,GF,GF1,AF,F1,AF,
+									 GF,DF1,AF,GF,GF1,AF,F1,AF,
+									 GF,DF1,AF,GF,GF1,AF,F1,AF
+									};
+
+const unsigned short wave[64] = { 32,35,38,41,44,47,49,52,54,56,58,59,61,62,62,63,63,63,62,62,61,59,				
+																	58,56,54,52,49,47,44,41,38,35,32,29,26,23,20,17,15,12,10,8,				
+																	6,5,3,2,2,1,1,1,2,2,3,5,6,8,10,12,15,17,20,23,26,29 };	
+
+									
+									
 //declare initial Gorrilla Position here
 //128 x, 160 y
 struct gorilla Gorilla= {0, 160, 0, 160, RIGHT,ALIVE, 0};  

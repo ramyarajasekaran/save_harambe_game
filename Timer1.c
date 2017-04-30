@@ -24,6 +24,9 @@
 #include <stdint.h>
 
 #include "tm4c123gh6pm.h"
+#include "DAC.h"
+#include "global_variables.h"
+#include "struct_definition.h"
 
 void (*PeriodicTask1)(void);   // user function
 
@@ -42,7 +45,7 @@ void Timer1_Init(void(*task)(void), uint32_t period){
   TIMER1_TAPR_R = 0;            // 5) bus clock resolution
   TIMER1_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
   TIMER1_IMR_R = 0x00000001;    // 7) arm timeout interrupt
-  NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFF00FF)|0x00008000; // 8) priority 4
+  NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFF00FF)|0x00006000; // 8) priority 3
 // interrupts enabled in the main program after all devices initialized
 // vector number 37, interrupt number 21
   NVIC_EN0_R = 1<<21;           // 9) enable IRQ 21 in NVIC
@@ -53,3 +56,10 @@ void Timer1A_Handler(void){
   TIMER1_ICR_R = TIMER_ICR_TATOCINT;// acknowledge TIMER1A timeout
   (*PeriodicTask1)();                // execute user task
 }
+
+void UserTask1A()			// to play sound(ONE NOTE)
+{
+		DAC_Out(wave[Index]); 		// output one value each interrupt
+	  Index = (Index+1)&0x3F;      // 4,5,6,7,7,7,6,5,4,3,2,1,1,1,2,3,...
+}
+

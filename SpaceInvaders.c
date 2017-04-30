@@ -58,12 +58,15 @@
 #include "Button.h"
 #include "Timer0.h"
 #include "Update.h"
+#include "DAC.h"
 #include "global_variables.h"
 #include "struct_definition.h"
+#include "Sound.h"
 
 
 
-#define PF1       (*((volatile uint32_t *)0x40025008))
+ #define PF1       (*((volatile uint32_t *)0x40025008))
+
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void Delay100ms(uint32_t count); // time delay in 0.1 
@@ -73,9 +76,9 @@ void display_gorilla(uint8_t x,uint8_t y);
 void check_Bullet(void);
 void Display_Engine(void);
 void Timer0_Init(void(*task)(void), uint32_t period);
-void UserTask(void);
+void UserTask0A(void);
 void PortAinit(void);
- 
+void Timer1_Init(void(*task)(void), uint32_t period);
 
 uint32_t ADCMail,ADCStatus=0,check=0,check1=0;
 
@@ -99,11 +102,11 @@ int main(void){
   Random_Init(seed);		// to generate new random number everytime
 	ADC_Init();
 	SysTick_Init(2000000);
-	
+	DAC_Init();
 	Output_Init();
 	
 	ST7735_FillScreen(0x0000);            // set screen to black		
-	Timer0_Init(&UserTask,150000);
+	Timer0_Init(&UserTask0A,150000);				// Timer for bullets' speed
 	Button_Init();
 	
 	
@@ -123,6 +126,10 @@ int main(void){
   GPIO_PORTA_AMSEL_R &= ~0xC8;          // disable analog functionality on PA3,6,7
 		
 	//display main menu
+		
+
+		Song_Play();
+		
 		char* ptr = "SAVE HARAMBE!";
 		ST7735_FillScreen(0xFFFF);
 		ST7735_DrawString(5, 2, ptr, 0x0000);
@@ -218,27 +225,6 @@ void SysTick_Handler(void){
 
 }
 
-void UserTask(){
-	static uint8_t cnt_bullet[num_bullets]={0,0,0,0,0};
-	
-	if(cnt_bullet[0]%2==0)
-		Bullet[0].speed=1;
-	if(cnt_bullet[1]%5==0)
-		Bullet[1].speed=1;
-	if(cnt_bullet[2]%15==0)
-		Bullet[2].speed=1;
-	if(cnt_bullet[3]%10==0)
-		Bullet[3].speed=1;
-	if(cnt_bullet[4]%12==0)
-		Bullet[4].speed=1;
-	
-	cnt_bullet[0]++;
-	cnt_bullet[1]++;
-	cnt_bullet[2]++;
-	cnt_bullet[3]++;
-	cnt_bullet[4]++;
-
-}
 
 
 
