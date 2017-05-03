@@ -132,15 +132,18 @@ int main(void){
 		ST7735_FillScreen(0xFFFF);
 		ST7735_DrawString(5, 2, ptr, 0x0000);
 		ST7735_DrawBitmap(15,100 ,emoji,100,70);
-		char* ptr2 = "PLAY GAME";
+		char* ptr2 = "PLAY LEVEL 1";
+		ST7735_DrawString(6, 10, ptr2, 0x0000);
+		ptr2 = "PLAY LEVEL 2";
 		ST7735_DrawString(6, 13, ptr2, 0x0000);
-		
+	
 		while(GPIO_PORTF_DATA_R&0x01){}						// loops until user presses button
 			sound_flag=MENU;
 			Sound_Play(2);
-			ST7735_DrawString(6, 13, ptr2, 0xF0CF);
+			ST7735_DrawString(6, 10, ptr2, 0xF0CF);
 			
 		while(!(GPIO_PORTF_DATA_R&0x01)){}			// loops until user releases button
+		
 			ST7735_FillScreen(0x0000); 
 			
 			sound_flag=ALIVE0;
@@ -158,13 +161,16 @@ int main(void){
 			{newY+=2;}
 		else if(!(GPIO_PORTF_DATA_R&0x10))
 			{
+				Gdown=0;
 				newY-=2;
 				sound_flag=JUMP;
 			}
 		//3. change coordinate of gorilla in struct
-		if(Gdown)
-			{gorillaLand();}
+		if(Gdown)	
+			gorillaLand();
+			
 		moveGorilla(newX, newY);
+		gorilla_fall();	
 		//4.Check if Gorilla is hit by Bullet
 		check_Bullet();
 		//5. Check if Gorilla captured the Banana
@@ -177,16 +183,24 @@ int main(void){
 	
 	sound_flag=DEAD0;
 	//end screen, do display of end screen here
-	//ST7735_FillScreen(0x0000);
-	/*		
-	ptr2="HARAMBE IS THANKFUL!";
-	ST7735_DrawString(1, 13, ptr2, 0xFFFF);
-	Delay100ms(10);
-	while(GPIO_PORTF_DATA_R&0x01){}
+
+		if(Gorilla.score==60)
+	{
+		ST7735_FillScreen(0x0000);
+		ptr = "HARAMBE IS ";
+		ST7735_DrawString(1, 5, ptr, 0xFFFF);
+		ptr="HAPPY AGAIN!";
+		
+	  ST7735_DrawString(7, 7, ptr, 0x00FF);
+		ptr = "YOU ARE THE ";
+		ST7735_DrawString(1, 10, ptr, 0xFFFF);
+		ptr=	"	MEME QUEEN/KING ";
+		ST7735_DrawString(3,12, ptr, 0x001F);
+		ptr= "OF 2K17!";
+		ST7735_DrawString(8, 14, ptr, 0xFFFF);
+		Delay100ms(20);
+	}
 	
-	while(!(GPIO_PORTF_DATA_R&0x01)){}	
-	 Delay100ms(10);
-		*/
 	ST7735_FillScreen(0x0000);
 	ptr2 ="RIP HARAMBE";
 	ST7735_DrawString(7, 9, ptr2, 0xFFFF);

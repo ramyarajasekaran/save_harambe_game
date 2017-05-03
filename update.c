@@ -4,7 +4,7 @@
 #include "global_variables.h"
 #include "Timer2.h"
 
-//uint8_t Gdown;
+
 void check_Bullet(){
 	uint8_t i;	
 	for(i=0;i<num_bullets;i++)
@@ -96,16 +96,32 @@ void gorillaLand(void)
 	uint8_t m;
 	for(m=0;m<4;m++)
 	{
-		if((Platform[m].x<=(Gorilla.x+15))&(Gorilla.x<=(Platform[m].x+Platform[m].length))&&((Platform[m].y<=Gorilla.y)&&(Platform[m].y+3>=Gorilla.y)))//need to add buffer of how much the gorrilla will move in the y direction
+		if((Platform[m].x<=(Gorilla.x+15))&&(Gorilla.x<=(Platform[m].x+Platform[m].length))&&((Platform[m].y<=Gorilla.y)&&(Platform[m].y+3>=Gorilla.y)))//need to add buffer of how much the gorrilla will move in the y direction
 		{
 			Gorilla.y=Platform[m].y+3;
 			Gdown=0;//clear flag for downward direction
 		}
+		
 		//add for floor
 		else if(Gorilla.y>=153&&Gorilla.y<=163)
 		{
 			Gorilla.y=160;
 			Gdown=0;//clear flag for downward direction
 		}
+
 	}
 }
+
+void gorilla_fall(){
+	int m;
+	for(m=0;m<4;m++)
+	{
+	
+	if(((Platform[m].x<=(Gorilla.oldx+15))&&(Gorilla.oldx<=(Platform[m].x+Platform[m].length)))&&((Platform[m].y<=Gorilla.y)&&(Platform[m].y+3>=Gorilla.y))&&!((Platform[m].x<=(Gorilla.x+15))&&(Gorilla.x<=(Platform[m].x+Platform[m].length))))
+		{
+			Gdown=1;
+		}
+
+	}
+}
+
