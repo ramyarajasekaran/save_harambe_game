@@ -947,8 +947,17 @@ const unsigned short wave[64] = { 32,35,38,41,44,47,49,52,54,56,58,59,61,62,62,6
 																	58,56,54,52,49,47,44,41,38,35,32,29,26,23,20,17,15,12,10,8,				
 																	6,5,3,2,2,1,1,1,2,2,3,5,6,8,10,12,15,17,20,23,26,29 };	
 
-									
-									
+const unsigned short scream[3]={GF,G,F};
+const unsigned short banana[4]={C0,E,G,C};			
+const unsigned short jump[2]={G1,BF1};
+const unsigned short menu[2]={A0,C0};	
+
+const unsigned short end_song[22]={	// Saa Re Jaa Ha Se Acha
+				EF0,EF0,D0,C7,D0,
+				B7,C7,C7,C7,G7,A7,
+				C7,D0,E0,F0,E0,
+				E0,D0,F0,E0,D0,C7
+};									
 //declare initial Gorrilla Position here
 //128 x, 160 y
 struct gorilla Gorilla= {0, 160, 0, 160, RIGHT,ALIVE, 0};  
@@ -971,10 +980,5 @@ struct platform Platform[4]={
 		{15, 110, 20},
 		{70, 100, 50}
 	};
-
-
-
-	
-
 
 

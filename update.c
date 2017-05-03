@@ -2,6 +2,7 @@
 #include "struct_definition.h"
 #include "Update.h"
 #include "global_variables.h"
+#include "Timer2.h"
 
 //uint8_t Gdown;
 void check_Bullet(){
@@ -12,6 +13,8 @@ void check_Bullet(){
 		{
 				Gorilla.status=DEAD;
 				dead_flag=1;
+				sound_flag=SCREAM;
+				break;
 		}
 	}	
 }
@@ -34,7 +37,7 @@ void moveGorilla(int x, int y)
 	Gorilla.y=y;
 	
 	//determine if gorilla is moving left or right
-	if((Gorilla.x)>(Gorilla.oldx))
+	if((Gorilla.x)>(Gorilla.oldx+3))
 		Gorilla.pos= RIGHT;
 	else
 		Gorilla.pos= LEFT;
@@ -58,6 +61,7 @@ void captBanana(void)
 					{
 						Bananas[n].capt=CAPTURED;
 						Gorilla.score+=10;
+						sound_flag=BANANA;
 						
 					}
 				}
@@ -69,6 +73,7 @@ void captBanana(void)
 					{
 						Bananas[n].capt=CAPTURED;
 						Gorilla.score+=10;
+						sound_flag=BANANA;
 					}
 				}
 		}
@@ -79,7 +84,7 @@ void captBanana(void)
 				{
 						Bananas[n].capt=CAPTURED;
 						Gorilla.score+=10;
-						
+						sound_flag=BANANA;
 				}
 			}
 		}

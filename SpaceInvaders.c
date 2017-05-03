@@ -53,6 +53,7 @@
 #include "tm4c123gh6pm.h"
 #include "ST7735.h"
 #include "Random.h"
+#include "Timer2.h"
 #include "TExaS.h"
 #include "ADC.h"
 #include "Button.h"
@@ -81,9 +82,6 @@ void PortAinit(void);
 void Timer1_Init(void(*task)(void), uint32_t period);
 
 uint32_t ADCMail,ADCStatus=0,check=0,check1=0;
-
-
-
 
 uint32_t Convert(uint32_t mailbox){
 	mailbox=113*mailbox/4096;
@@ -127,7 +125,7 @@ int main(void){
 		
 	//display main menu
 		
-
+		sound_flag=ALIVE0;
 		Song_Play();
 		
 		char* ptr = "SAVE HARAMBE!";
@@ -137,10 +135,15 @@ int main(void){
 		char* ptr2 = "PLAY GAME";
 		ST7735_DrawString(6, 13, ptr2, 0x0000);
 		
-		while(GPIO_PORTF_DATA_R&0x01){}
+		while(GPIO_PORTF_DATA_R&0x01){}						// loops until user presses button
+			sound_flag=MENU;
+			Sound_Play(2);
 			ST7735_DrawString(6, 13, ptr2, 0xF0CF);
-		while(!(GPIO_PORTF_DATA_R&0x01)){}
+			
+		while(!(GPIO_PORTF_DATA_R&0x01)){}			// loops until user releases button
 			ST7735_FillScreen(0x0000); 
+			
+			sound_flag=ALIVE0;
 			
 	while((dead_flag==0)&&((GPIO_PORTF_DATA_R&0x01)==0x01)) //check if end game button is pressed OR if gorilla is dead
 	{
@@ -149,12 +152,15 @@ int main(void){
 		//1. read ADC
 		while(ADCStatus!=1){}
 			ADCStatus=0;
-		newX =Convert(ADCMail);
+		newX = Convert(ADCMail);
 		//2. read button
 		if(Gdown)
 			{newY+=2;}
 		else if(!(GPIO_PORTF_DATA_R&0x10))
-			{newY-=2;}
+			{
+				newY-=2;
+				sound_flag=JUMP;
+			}
 		//3. change coordinate of gorilla in struct
 		if(Gdown)
 			{gorillaLand();}
@@ -164,19 +170,15 @@ int main(void){
 		//5. Check if Gorilla captured the Banana
 		captBanana();	
 		//6.display board
-	
+		
 		Display_Engine();
 			
 	}
 	
+	sound_flag=DEAD0;
 	//end screen, do display of end screen here
-	ST7735_FillScreen(0x0000);
-	
-	ptr2 = "SCORE";
-	ST7735_DrawString(7, 2, ptr2, 0xFFFF);
-	ST7735_SetCursor(9,6);
-	LCD_OutDec(Gorilla.score);
-	
+	//ST7735_FillScreen(0x0000);
+	/*		
 	ptr2="HARAMBE IS THANKFUL!";
 	ST7735_DrawString(1, 13, ptr2, 0xFFFF);
 	Delay100ms(10);
@@ -184,18 +186,27 @@ int main(void){
 	
 	while(!(GPIO_PORTF_DATA_R&0x01)){}	
 	 Delay100ms(10);
-		
+		*/
 	ST7735_FillScreen(0x0000);
 	ptr2 ="RIP HARAMBE";
-	ST7735_DrawString(5, 9, ptr2, 0xFFFF);
+	ST7735_DrawString(7, 9, ptr2, 0xFFFF);
 	ST7735_DrawBitmap(35,70 ,pixel,75,63);	
+	
+			
+		
   ptr2="GAME OVER!";
+	ptr = "SCORE";
+	
+	ST7735_DrawString(8, 14, ptr, 0xFFFF);
+	ST7735_SetCursor(17,14);
+	LCD_OutDec(Gorilla.score);
 while(1){		 
-	ST7735_DrawString(9, 12, ptr2, 0x001F);
+	ST7735_DrawString(2, 11, ptr2, 0x001F);
 	Delay100ms(5);	 
-	ST7735_DrawString(9, 12, ptr2, 0x0000);
+	ST7735_DrawString(2, 11, ptr2, 0x0000);
 	Delay100ms(5);
 	}
+
 }
 
 

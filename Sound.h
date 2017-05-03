@@ -11,20 +11,10 @@
  #define FINT (80000000/3.5)
 
 void Sound_Init(void);
-void Sound_Play(uint32_t period);
+void Sound_Play(uint8_t n);
 void UserTask2(void);
 void Song_Play(void);
 
-
-void Sound_Shoot(void);
-void Sound_Killed(void);
-void Sound_Explosion(void);
-
-void Sound_Fastinvader1(void);
-void Sound_Fastinvader2(void);
-void Sound_Fastinvader3(void);
-void Sound_Fastinvader4(void);
-void Sound_Highpitch(void);
 
 #define C1   597   // 2093 Hz
 #define B1   633   // 1975.5 Hz
@@ -43,8 +33,8 @@ void Sound_Highpitch(void);
 #define BF   1341   // 932.3 Hz
 #define A    1420   // 880 Hz
 #define AF   1505   // 830.6 Hz
-#define G    1594   // 784 Hz
-#define GF  1689   // 740 Hz
+#define G    1594   // 784 Hz		----
+#define GF  1689   // 740 Hz		----
 #define F   1790   // 698.5 Hz
 #define E   1896   // 659.3 Hz
 #define EF  2009   // 622.3 Hz
@@ -57,7 +47,7 @@ void Sound_Highpitch(void);
 #define AF0 3010   // 415.3 Hz
 #define G0  3189   // 392 Hz --
 #define GF0 3378   // 370 Hz
-#define F0  3579   // 349.2 Hz
+#define F0  3579   // 349.2 Hz		---
 #define E0  3792   // 329.6 Hz
 #define EF0 4018   // 311.1 Hz
 #define D0  4257   // 293.7 Hz

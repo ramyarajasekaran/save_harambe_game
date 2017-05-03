@@ -28,6 +28,7 @@
 #include "global_variables.h"
 #include "struct_definition.h"
 #include "Sound.h"
+#include "Timer1.h"
 
 unsigned long TimerCount;
 void Timer2_Init(unsigned long period){
@@ -52,9 +53,52 @@ void Timer2_Init(unsigned long period){
 void Timer2A_Handler(void){
   TIMER2_ICR_R = 0x00000001;  // acknowledge
   TimerCount++;
-	if(cnt==48)
-		cnt=0;
-	Sound_Play(guns_n_roses[cnt]);
-	 cnt++;
+	
+	if(sound_flag==ALIVE0)
+	{
+		//Sound_Play(1);
+		if(cnt==48)
+		{cnt=0;}
+	
+		Timer1_Init(&UserTask1A, guns_n_roses[cnt] );		//for next note
+		
+		cnt++;
+	}
+	if(sound_flag==SCREAM)	
+	{Sound_Play(1);
+		sindex++;
+	if(sindex==3)
+	sindex=0;
+	}
+	if(sound_flag==BANANA)
+	{
+	Sound_Play(2);
+		bindex++;		
+	if(bindex==4)
+	{bindex=0;
+		sound_flag=ALIVE0;}
+	}
+	if(sound_flag==DEAD0)
+	{	
+			Sound_Play(1);
+			eindex++;
+		if(eindex==22)
+			eindex=0;
+	}	
+	if(sound_flag==JUMP)
+	{
+		Sound_Play(2);
+			jindex++;
+		if(jindex==2)
+		{jindex=0;sound_flag=ALIVE0;}
+	}
+	if(sound_flag==MENU)
+	{
+		Sound_Play(2);
+			mindex++;
+		if(mindex==2)
+		{mindex=0;}	
+	}
+		
 // run some background stuff here
 }

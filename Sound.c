@@ -17,39 +17,40 @@ void Sound_Init(void){
 // write this
 };
 void Song_Play(){
-			Timer2_Init(FINT);	// Timer2 for song
-			//Timer1_Init(&UserTask1A, guns_n_roses[cnt] ); 	// Timer1 for sound(for each note) 
+			Timer2_Init(FINT);	// Timer2 for guns_n_roses song			
+}
+
+void Sound_Play(uint8_t n){
+	Timer2_Init(FINT/n);
+	switch(sound_flag)
+	{
+		
+		case DEAD0:		
+			{
+				Timer1_Init(&UserTask1A, end_song[eindex] );
+				break;
+			}
+	  case SCREAM:  
+		{
 			
+			Timer1_Init(&UserTask1A, scream[sindex] );
+			break;
+		}
+		case BANANA: 
+		{
+			Timer1_Init(&UserTask1A, banana[bindex] );
+			break;
+		}
+		case MENU:
+		{
+			Timer1_Init(&UserTask1A, menu[mindex] );
+			break;
+		}
+		default: //case JUMP:
+		{
+			Timer1_Init(&UserTask1A, jump[jindex] );
+			break;
+		}
+	}
+
 }
-
-
-void Sound_Play(uint32_t period){
-   Timer1_Init(&UserTask1A, guns_n_roses[cnt] );
-	//flag=0;
-}
-
-void Sound_Shoot(void){
-// write this
-};
-void Sound_Killed(void){
-// write this
-};
-void Sound_Explosion(void){
-// write this
-};
-
-void Sound_Fastinvader1(void){
-// write this
-};
-void Sound_Fastinvader2(void){
-// write this
-};
-void Sound_Fastinvader3(void){
-// write this
-};
-void Sound_Fastinvader4(void){
-// write this
-};
-void Sound_Highpitch(void){
-// write this
-};

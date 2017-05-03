@@ -14,13 +14,14 @@ uint8_t randomy(uint8_t);
 
 void Display_Engine()
 {		
-//		uint16_t seed=0;
+	uint8_t i;
 		//PLATFORMS
 	ST7735_FillRect(25,30,30,3,0xFFFF);
 	ST7735_FillRect(55,60,40,3,0xFFFF);
 	ST7735_FillRect(15,110,20,3,0xFFFF);
 	ST7735_FillRect(70,100,50,3,0xFFFF);
-	uint8_t i;
+
+	
 		for(i=0;i<6;i++)					// PRINTING BANANAS
 	{
 		if(Bananas[i].capt==NOTCAPTURED)			// Checking if banana has been captured
@@ -39,13 +40,13 @@ void Display_Engine()
 			if(Gorilla.pos==RIGHT)				// depends on the side the gorilla is facing/ADC moves
 			ST7735_DrawBitmap(Gorilla.x,Gorilla.y, right, 15,15);
 			else
-			ST7735_DrawBitmap(Gorilla.x,Gorilla.y,left, 15,15);	
+			ST7735_DrawBitmap(Gorilla.x,Gorilla.y,right2, 15,15);	
 			
 		}
 		else													// WHEN GORILLA IS DEAD - blinks 3 times and disappears -- 
 																	//set this as condn for while loop 
 		{
-			DisableInterrupts();
+			//DisableInterrupts();
 			ST7735_DrawBitmap(Gorilla.oldx,Gorilla.oldy, robot_clear, 15,15);
 			while(i++<3)
 			{
@@ -53,13 +54,14 @@ void Display_Engine()
 				ST7735_DrawBitmap(Gorilla.x,Gorilla.y,right , 15,15);	//BLINKING with delay
 
 			else
-				ST7735_DrawBitmap(Gorilla.x,Gorilla.y,left , 15,15);
+				ST7735_DrawBitmap(Gorilla.x,Gorilla.y,right2 , 15,15);
 				
-			Delay_100ms(5);
+			Delay_100ms(3);
 			
 			ST7735_DrawBitmap(Gorilla.x,Gorilla.y, robot_clear, 15,15);
+			Delay_100ms(3);
 			}
-			EnableInterrupts();
+			//EnableInterrupts();
 		}
 		
 		
@@ -70,7 +72,7 @@ void Display_Engine()
 				Bullet[i].x=120;
 			if(Bullet[i].x==120)
 			{
-				Random_Init(ADC_In());	// changes seed for the y coord generator
+				Random_Init(ADC_In()*i);	// changes seed for the y coord generator
 				Bullet[i].y=randomy(i);		// change y coordinate of bullet
 				ST7735_FillRect(0,Bullet[i].oldy ,5,3 , 0x0000);	//clean up old bullet
 			}
@@ -111,7 +113,7 @@ uint8_t randomy(uint8_t i){
 		
 		temp=min+Random32()%(max-min+1);
 		// checks if bullet crashes into platforms && bananas
-	}while((temp>=145)||((temp>=27)&&(temp<=46))||((temp>=57)&&(temp<=76))||((temp>=97)&&(temp<=116))||((temp>=107)&&(temp<=126)));
+	}while((temp>=140)||((temp>=27)&&(temp<=46))||((temp>=57)&&(temp<=76))||((temp>=97)&&(temp<=116))||((temp>=107)&&(temp<=126)));
 	return temp;
 }
 

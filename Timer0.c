@@ -62,11 +62,11 @@ void UserTask0A(){
 		Bullet[0].speed=1;
 	if(cnt_bullet[1]%5==0)
 		Bullet[1].speed=1;
-	if(cnt_bullet[2]%15==0)
+	if(cnt_bullet[2]%30==0)
 		Bullet[2].speed=1;
 	if(cnt_bullet[3]%10==0)
 		Bullet[3].speed=1;
-	if(cnt_bullet[4]%12==0)
+	if(cnt_bullet[4]%22==0)
 		Bullet[4].speed=1;
 	
 	cnt_bullet[0]++;
