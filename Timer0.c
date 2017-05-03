@@ -25,6 +25,7 @@
 
 #include "tm4c123gh6pm.h"
 #include "struct_definition.h"
+#include "global_variables.h"
 void UserTask(void);
 void (*PeriodicTask0)(void);   // user function
 
@@ -57,7 +58,21 @@ void Timer0A_Handler(void){
 
 void UserTask0A(){			
 	static uint8_t cnt_bullet[num_bullets]={0,0,0,0,0};
-	
+if(level1)
+{	
+	if(cnt_bullet[0]%80==0)
+		Bullet[0].speed=1;
+	if(cnt_bullet[1]%40==0)
+		Bullet[1].speed=1;
+	if(cnt_bullet[2]%30==0)
+		Bullet[2].speed=1;
+	if(cnt_bullet[3]%10==0)
+		Bullet[3].speed=1;
+	if(cnt_bullet[4]%25==0)
+		Bullet[4].speed=1;
+}	
+else
+{	
 	if(cnt_bullet[0]%2==0)
 		Bullet[0].speed=1;
 	if(cnt_bullet[1]%5==0)
@@ -68,7 +83,7 @@ void UserTask0A(){
 		Bullet[3].speed=1;
 	if(cnt_bullet[4]%22==0)
 		Bullet[4].speed=1;
-	
+}
 	cnt_bullet[0]++;
 	cnt_bullet[1]++;
 	cnt_bullet[2]++;

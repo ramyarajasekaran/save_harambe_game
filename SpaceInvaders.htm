@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\SpaceInvaders.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\SpaceInvaders.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 03 00:25:29 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 03 01:32:57 2017
 <BR><P>
 <H3>Maximum Stack Usage =        168 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -881,7 +881,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c3]"></a>Convert</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, spaceinvaders.o(i.Convert))
+<P><STRONG><a name="[c4]"></a>Convert</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, spaceinvaders.o(i.Convert))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -895,7 +895,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask1A
 </UL>
 
-<P><STRONG><a name="[c9]"></a>Delay100ms</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, spaceinvaders.o(i.Delay100ms))
+<P><STRONG><a name="[c3]"></a>Delay100ms</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, spaceinvaders.o(i.Delay100ms))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Delay100ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1109,7 +1109,7 @@ Global Symbols
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Song_Play
 </UL>
 
-<P><STRONG><a name="[80]"></a>UserTask0A</STRONG> (Thumb, 154 bytes, Stack size 0 bytes, timer0.o(i.UserTask0A))
+<P><STRONG><a name="[80]"></a>UserTask0A</STRONG> (Thumb, 274 bytes, Stack size 0 bytes, timer0.o(i.UserTask0A))
 <BR>[Address Reference Count : 1]<UL><LI> spaceinvaders.o(i.main)
 </UL>
 <P><STRONG><a name="[7f]"></a>UserTask1A</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, timer1.o(i.UserTask1A))
@@ -1120,31 +1120,31 @@ Global Symbols
 <BR>[Address Reference Count : 2]<UL><LI> sound.o(i.Sound_Play)
 <LI> timer2.o(i.Timer2A_Handler)
 </UL>
-<P><STRONG><a name="[c8]"></a>captBanana</STRONG> (Thumb, 280 bytes, Stack size 0 bytes, update.o(i.captBanana))
+<P><STRONG><a name="[c9]"></a>captBanana</STRONG> (Thumb, 280 bytes, Stack size 0 bytes, update.o(i.captBanana))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c7]"></a>check_Bullet</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, update.o(i.check_Bullet))
+<P><STRONG><a name="[c8]"></a>check_Bullet</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, update.o(i.check_Bullet))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c4]"></a>gorillaLand</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, update.o(i.gorillaLand))
+<P><STRONG><a name="[c5]"></a>gorillaLand</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, update.o(i.gorillaLand))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c6]"></a>gorilla_fall</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, update.o(i.gorilla_fall))
+<P><STRONG><a name="[c7]"></a>gorilla_fall</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, update.o(i.gorilla_fall))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8b]"></a>main</STRONG> (Thumb, 538 bytes, Stack size 16 bytes, spaceinvaders.o(i.main))
+<P><STRONG><a name="[8b]"></a>main</STRONG> (Thumb, 678 bytes, Stack size 16 bytes, spaceinvaders.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
 <LI>Call Chain = main &rArr; LCD_OutDec &rArr; ST7735_OutChar &rArr; ST7735_DrawString &rArr; ST7735_DrawCharS &rArr; ST7735_FillRect &rArr; setAddrWindow
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveGorilla
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gorilla_fall
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gorillaLand
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_Bullet
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;captBanana
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveGorilla
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gorilla_fall
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gorillaLand
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_Bullet
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;captBanana
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_SetCursor
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ST7735_FillScreen
@@ -1154,8 +1154,8 @@ Global Symbols
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Engine
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Button_Init
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay100ms
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Convert
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay100ms
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Convert
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_OutDec
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Play
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Song_Play
@@ -1167,7 +1167,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[c5]"></a>moveGorilla</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, update.o(i.moveGorilla))
+<P><STRONG><a name="[c6]"></a>moveGorilla</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, update.o(i.moveGorilla))
 <BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 

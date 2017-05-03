@@ -10,3 +10,4 @@ uint8_t sindex=0;
 uint8_t bindex=0;
 uint8_t jindex=0;
 uint8_t mindex=0;
+uint8_t level1=0;

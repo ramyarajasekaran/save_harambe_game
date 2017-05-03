@@ -132,23 +132,35 @@ int main(void){
 		ST7735_FillScreen(0xFFFF);
 		ST7735_DrawString(5, 2, ptr, 0x0000);
 		ST7735_DrawBitmap(15,100 ,emoji,100,70);
+while(GPIO_PORTF_DATA_R&0X01){	
+		
 		char* ptr2 = "PLAY LEVEL 1";
 		ST7735_DrawString(6, 10, ptr2, 0x0000);
-		ptr2 = "PLAY LEVEL 2";
-		ST7735_DrawString(6, 13, ptr2, 0x0000);
-	
-		while(GPIO_PORTF_DATA_R&0x01){}						// loops until user presses button
+		char* ptr3 = "PLAY LEVEL 2";
+		ST7735_DrawString(6, 13, ptr3, 0x0000);
+		if(ADCMail<2048)
+		{
+			ST7735_DrawString(6, 10, ptr2, 0xF0CF);
+			level1=1;
+		}
+		else
+		{
+			ST7735_DrawString(6, 13, ptr3, 0xF0CF);
+			level1=0;
+		}
+		Delay100ms(2);
+		
+	}		
 			sound_flag=MENU;
 			Sound_Play(2);
-			ST7735_DrawString(6, 10, ptr2, 0xF0CF);
-			
-		while(!(GPIO_PORTF_DATA_R&0x01)){}			// loops until user releases button
+		
+		
 		
 			ST7735_FillScreen(0x0000); 
 			
 			sound_flag=ALIVE0;
 			
-	while((dead_flag==0)&&((GPIO_PORTF_DATA_R&0x01)==0x01)) //check if end game button is pressed OR if gorilla is dead
+	while(dead_flag==0) //check if end game button is pressed OR if gorilla is dead
 	{
 		
 		
@@ -186,23 +198,23 @@ int main(void){
 
 		if(Gorilla.score==60)
 	{
-		ST7735_FillScreen(0x0000);
+		ST7735_FillScreen(0xFFFF);
 		ptr = "HARAMBE IS ";
-		ST7735_DrawString(1, 5, ptr, 0xFFFF);
+		ST7735_DrawString(1, 5, ptr, 0xF0CF);
 		ptr="HAPPY AGAIN!";
 		
 	  ST7735_DrawString(7, 7, ptr, 0x00FF);
 		ptr = "YOU ARE THE ";
-		ST7735_DrawString(1, 10, ptr, 0xFFFF);
+		ST7735_DrawString(1, 10, ptr, 0xF0CF);
 		ptr=	"	MEME QUEEN/KING ";
 		ST7735_DrawString(3,12, ptr, 0x001F);
 		ptr= "OF 2K17!";
-		ST7735_DrawString(8, 14, ptr, 0xFFFF);
+		ST7735_DrawString(8, 14, ptr, 0xF0CF);
 		Delay100ms(20);
 	}
 	
 	ST7735_FillScreen(0x0000);
-	ptr2 ="RIP HARAMBE";
+	char*	ptr2 ="RIP HARAMBE";
 	ST7735_DrawString(7, 9, ptr2, 0xFFFF);
 	ST7735_DrawBitmap(35,70 ,pixel,75,63);	
 	
@@ -215,7 +227,7 @@ int main(void){
 	ST7735_SetCursor(17,14);
 	LCD_OutDec(Gorilla.score);
 while(1){		 
-	ST7735_DrawString(2, 11, ptr2, 0x001F);
+	ST7735_DrawString(2, 11, ptr2, 0xFFFF);
 	Delay100ms(5);	 
 	ST7735_DrawString(2, 11, ptr2, 0x0000);
 	Delay100ms(5);
@@ -247,7 +259,7 @@ void SysTick_Handler(void){
 
 	ADCMail= ADC_In();		// grab sample and put in the mailbox
 	ADCStatus=1;			// set flag
-
+	
 }
 
 

@@ -16,4 +16,5 @@ extern uint8_t sindex;
 extern uint8_t bindex;
 extern uint8_t jindex;
 extern uint8_t mindex;
+extern uint8_t level1;
 
